@@ -5,16 +5,25 @@ import FoodLog from "./pages/FoodLog"
 import ActivityLog from "./pages/ActivityLog"
 import Profile from "./pages/Profile"
 
+import Login from "./pages/Login"
+import { useAppContext } from "./context/AppContext"
+
+
 
 const App = () => {
+  const { user, isUserFetched, onboardingCompleted } = useAppContext()
+
+  if (!user) {
+    return isUserFetched ? <Login /> : <p>Loading</p>
+  }
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="food" element={<FoodLog />} />
-        <Route path="activity" element={<ActivityLog />} />
-        <Route path="profile" element={<Profile />} />
+          <Route index element={<Dashboard />} />
+          <Route path="food" element={<FoodLog />} />
+          <Route path="activity" element={<ActivityLog />} />
+          <Route path="profile" element={<Profile />} />
 
         </Route>
       </Routes>
